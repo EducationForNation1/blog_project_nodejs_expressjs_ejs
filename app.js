@@ -5,7 +5,7 @@ import route from './routers/routes.js';
 import path from 'path';
 import connectdB from './dB/connectdB.js';
 import bodyParser from 'body-parser';
-
+import session from 'express-session';
 
 // database connection
 connectdB('mongodb://localhost:27017/')
@@ -14,6 +14,14 @@ app.use(express.static(path.join(process.cwd(),'public')));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
+
+// session setup
+app.use(session({
+    secret: 'educationfornation',
+    resave: false,
+    saveUninitialized: false,
+}));
+
 
 // setup for ejs
 app.set('view engine','ejs');

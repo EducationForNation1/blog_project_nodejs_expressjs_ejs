@@ -2,6 +2,8 @@ import { render } from "ejs";
 import userModel from "../models/UserSchema.js";
 import bcrypt from 'bcryptjs';
 
+
+
 const registerUser = (req, res) => {
     res.render('user/register_user');
 };
@@ -58,11 +60,14 @@ const login = async (req,res)=>{
             const password = record.Password
           const result =  await bcrypt.compare(req.body.password,password)
           if(result){
-            // console.log("Password Matched")
-            res.send("Welcome to my Dashboard")
+                // create session
+                
+                req.session.userId = record._id;
+
+                res.redirect('/dashboard')
           }else{
             //  res.send("Welcome to my Dashboard")
-            res.send("password is not matched")
+            res.redirect('/login')
           }
           
         }else{
