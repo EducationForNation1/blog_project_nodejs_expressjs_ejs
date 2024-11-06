@@ -1,0 +1,29 @@
+<%- include('../base/header.ejs') %>
+
+
+<div class="container w-50 text-center my-2">
+    <div class="alert alert-primary">
+        <h4>User Registration</h4>
+    </div>
+</div>
+
+<div class="container w-25 bg-danger-subtle rounded p-5">
+    <form action="" method="POST">
+        <label for="" class="form-label">Full Name</label>
+        <input type="text" name="full_name" class="form-control" placeholder="Ex: Ajay Kumar">
+    
+        <label for="" class="form-label">Email</label>
+        <input type="text" name="email" class="form-control" placeholder="Ex: xyz@gmail.com">
+
+        <label for="" class="form-label">Password</label>
+        <input type="password" name="password" class="form-control" placeholder="Ex: *****">
+
+        <label for="" class="form-label">Confirm Password</label>
+        <input type="text" class="form-control" placeholder="Ex: ">
+
+        <input type="submit" class="btn btn-outline-danger float-end mt-4" value="Register">
+
+    </form>
+</div>
+
+<%- include('../base/footer.ejs') %>

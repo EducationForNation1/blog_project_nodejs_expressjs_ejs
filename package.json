@@ -1,0 +1,24 @@
+{
+  "name": "blog_website_nodejs",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "server": "nodemon app.js"
+  },
+  "keywords": [
+    "blog_website",
+    "Nodejs Project"
+  ],
+  "author": "Muskaan,Deepak,Himanshu",
+  "license": "ISC",
+  "type": "module",
+  "description": "This is blog website using nodejs js for beginners",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.3",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "mongoose": "^8.7.3",
+    "nodemon": "^3.1.7"
+  }
+}
