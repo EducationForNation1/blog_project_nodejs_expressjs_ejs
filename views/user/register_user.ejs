@@ -13,8 +13,11 @@
         <input type="text" name="full_name" class="form-control" placeholder="Ex: Ajay Kumar">
     
         <label for="" class="form-label">Email</label>
-        <input type="text" name="email" class="form-control" placeholder="Ex: xyz@gmail.com">
-
+        <input type="text" name="email" class="form-control" placeholder="Ex: xyz@gmail.com"> 
+        <% if (typeof errorMessage !== "undefined") { %>
+            <p class="text-danger"><%= errorMessage %></p>
+        <% } %>
+        
         <label for="" class="form-label">Password</label>
         <input type="password" name="password" class="form-control" placeholder="Ex: *****">
 

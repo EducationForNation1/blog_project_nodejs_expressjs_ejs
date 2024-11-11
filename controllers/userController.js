@@ -23,8 +23,16 @@ const Signup = async (req, res) => {
         });
 
         if (userData) {
-            await userData.save();
-            console.log('Data saved');
+           const email_exists =  await userModel.findOne({'Email':req.body.email})
+            if(email_exists){
+                return res.render('user/register_user',{ errorMessage: 'This email is already exists!'})
+                // console.log('This email is exists:',email_exists)
+            }else{
+                await userData.save();
+                // console.log('Data saved');
+                return res.redirect('/login')
+            }       
+            
         } else {
             console.log('Data not saved, something went wrong!');
         }
@@ -54,33 +62,43 @@ const loginUser = (req,res)=>{
 
 const login = async (req,res)=>{
     try {
-        console.log(req.body)
+        // console.log(req.body)
         const record =  await userModel.findOne({"Email":req.body.email});
         if(record){
             const password = record.Password
           const result =  await bcrypt.compare(req.body.password,password)
           if(result){
                 // create session
-                
                 req.session.userId = record._id;
-
-                res.redirect('/dashboard')
+             return res.redirect('/dashboard')
           }else{
             //  res.send("Welcome to my Dashboard")
-            res.redirect('/login')
+           return res.redirect('/login')
           }
           
         }else{
             // console.log("Email Not Found")
-            res.render('user/login',{ errorMessage: 'This email is not exists!'})
+           return res.render('user/login',{ errorMessage: 'This email is not exists!'})
         }
         // console.log(email)
-        res.render('user/login')
+        return res.render('user/login')
     } catch (error) {
         console.log(error.message)
     }
 }
 
+  
 
+// logout
+const logout = async(req,res)=>{
+    try {
+        if(req.session){
+           await req.session.destroy();
+           return res.redirect('/login')
+        }
+    } catch (error) {
+       console.log(error.message) 
+    }    
+}
 
-export { registerUser, Signup, loginUser,login };
+export { registerUser, Signup, loginUser,login,logout};
