@@ -7,6 +7,9 @@ import connectdB from './dB/connectdB.js';
 import bodyParser from 'body-parser';
 import session from 'express-session';
 
+
+
+
 // database connection
 connectdB('mongodb://localhost:27017/')
 // setup of static file

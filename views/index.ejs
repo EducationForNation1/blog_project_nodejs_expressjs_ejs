@@ -1,3 +1,54 @@
 <%- include('./base/header.ejs') %>
 
-<%- include('./base/footer.ejs') %>
+    <!-- blog -->
+    <div class="row my-2">
+        <% if (posts && posts.length > 0) { %>
+            <% posts.forEach(post => { %>
+                <div class="col-md-6">
+                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col p-4 d-flex flex-column position-static">
+                            <strong class="d-inline-block mb-2 text-success-emphasis">Design</strong>
+                            <h3 class="mb-0">
+                                <%= post.Title %>
+                            </h3>
+                            <div class="mb-1 text-body-secondary">Nov 11</div>
+                            <!-- Add a data attribute to store the full description -->
+                            <p class="mb-auto short_desc" data-description="<%= post.Description %>">
+                                <!-- This will be replaced with 10 words using JavaScript -->
+                            </p>
+                            <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
+                                Continue reading
+                                <svg class="bi">
+                                    <use xlink:href="#chevron-right" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="col-auto d-none d-lg-block">
+                            <img src="uploads/<%= post.Image %>" alt="<%= post.title %> image" style="width: 200px; height: auto;">
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>No posts available.</p>
+        <% } %>
+    </div>
+    
+    <script>
+        // Select all short description elements
+        document.querySelectorAll('.short_desc').forEach(descElement => {
+            // Get the full description from the data attribute
+            const fullDescription = descElement.getAttribute('data-description') || '';
+            
+            // Limit it to 10 words
+            const limitedDescription = fullDescription.split(' ').slice(0, 20).join(' ') + '...';
+            
+            // Set the truncated description as the content
+            descElement.textContent = limitedDescription;
+        });
+    </script>
+    
+
+
+
+    <%- include('./base/footer.ejs') %>
