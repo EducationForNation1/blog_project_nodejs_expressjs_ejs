@@ -17,7 +17,7 @@ const postSchema = new mongoose.Schema({
 
     createdBy: { 
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'userModel', 
+        ref: 'userRegistered', 
         required: true }, // Reference to User
     
 }, { timestamps: true });

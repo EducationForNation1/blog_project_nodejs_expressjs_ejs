@@ -2,6 +2,7 @@ import postModel from "../models/postSchema.js";
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
+import { render } from "ejs";
 
 // Define the upload directory path
 const uploadDir = path.join(process.cwd(),'public', 'uploads');
@@ -10,8 +11,6 @@ const uploadDir = path.join(process.cwd(),'public', 'uploads');
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
 }
-
-
 // Configure multer for file upload
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -37,10 +36,7 @@ const createPost_get = async (req,res)=>{
 
 const createPost_post= async (req,res)=>{
     try {
-        // console.log(req.body)
-
-        const imagePath = req.file ? req.file.path : null; // Path to the uploaded file
-        
+        // console.log(req.body)        
         const response =  await postModel({
             'Title':req.body.post_title,
             'Description':req.body.post_description,
@@ -72,4 +68,18 @@ const user_all_posts = async (req,res)=>{
         }
 }
 
-export {createPost_get,createPost_post,upload,user_all_posts};
+const post_detail_page =async (req,res)=>{
+    try {
+        const post_id = req.params.id;
+        const single_post =  await postModel.findOne({_id:post_id});
+        // console.log(single_post)
+        return res.render('user/post_detail_page',{"single_post":single_post})
+        
+    } catch (error) {
+        console.log(error.message)
+
+    }
+}
+
+
+export {createPost_get,createPost_post,upload,user_all_posts,post_detail_page};
